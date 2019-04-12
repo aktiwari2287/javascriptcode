@@ -34,6 +34,7 @@ let empModule=(function(){
 
 function display(data){
     let tab=document.getElementById("emp");
+    $("#emp").find("tr:not(:first)").remove();
     let i=1;
     data.users.forEach(element => {
         let {name,email,address,age,img}=element;
@@ -49,10 +50,11 @@ function display(data){
       </button>
         `;
         row.insertCell(6).innerHTML=`
-        <button class="btn"><i class="fa fa-trash"></i></button
+            <button class="btn" onclick=remove('${name}')>
+                <i class="fa fa-trash"></i>
+            </button
         `;
     });
-    window.allEmps=data.results;
 }
 
 (()=>{
@@ -67,7 +69,26 @@ function display(data){
     
 })();
 
-
+function remove(username){
+    console.log(username);
+    $.ajax({
+        url: `http://localhost:8080/users/remove/${username}`,
+        type: 'DELETE',
+        success: (data)=>{
+            display(data);
+        }
+      });
+}
+function reset(){
+    $.ajax({
+        url: 'http://localhost:8080/users/reset',
+        dataType: 'json',
+        success:function(data){
+            console.log(data);
+            display(data);
+        }
+    });
+}
 function add(){
     var user={name:"Puja",address:"Patna",email:"puja@gmail.com",age:"18",img:"https://randomuser.me/api/portraits/men/90.jpg"};
     jQuery.ajax({
