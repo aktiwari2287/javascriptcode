@@ -103,3 +103,13 @@ function add(){
         }
     }); 
 }
+document.getElementById("search").addEventListener("input",(e)=>{
+    $.ajax({
+        url: `http://localhost:8080/users/search?name=${e.target.value}`,
+        dataType: 'json',
+        success:function(data){
+            console.log(data);
+            display(data);
+        }
+    });
+});
