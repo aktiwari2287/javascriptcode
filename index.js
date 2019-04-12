@@ -50,7 +50,7 @@ function display(data){
       </button>
         `;
         row.insertCell(6).innerHTML=`
-            <button class="btn" onclick=remove('${name}')>
+            <button class="btn btn-info btn-md" onclick=remove('${name}')>
                 <i class="fa fa-trash"></i>
             </button
         `;
