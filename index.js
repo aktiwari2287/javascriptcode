@@ -89,9 +89,12 @@ function reset(){
         }
     });
 }
-function add(){
-    var user={name:"Puja",address:"Patna",email:"puja@gmail.com",age:"18",img:"https://randomuser.me/api/portraits/men/90.jpg"};
-    jQuery.ajax({
+
+function addUser(name,address,email,age,img){
+        var user={name,address,email,age,img};
+        console.log(user);
+        
+       jQuery.ajax({
         url: "http://localhost:8080/users/add",
         type: "POST",
         data: JSON.stringify(user),
@@ -99,7 +102,7 @@ function add(){
         dataType: "json",
         success: function(result) {
         console.log(result);
-        
+        display(result);
         }
     }); 
 }
@@ -112,4 +115,15 @@ document.getElementById("search").addEventListener("input",(e)=>{
             display(data);
         }
     });
+});
+
+
+document.getElementById("add").addEventListener("click",(e)=>{
+    let name=document.getElementById("name").value,
+    address=document.getElementById("address").value,
+    email=document.getElementById("email").value,
+    age=document.getElementById("age").value,
+    img=document.getElementById("img").value;
+
+    addUser(name,address,email,age,img);
 });

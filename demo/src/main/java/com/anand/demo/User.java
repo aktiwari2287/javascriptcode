@@ -2,6 +2,9 @@ package com.anand.demo;
 
 public class User {
 	private String name;
+	public User() {
+		
+	}
 	public User(String name, String address, String email, String age, String img) {
 		super();
 		this.name = name;
