@@ -1,37 +1,4 @@
-/*
-let empModule=(function(){
-    function getEmps(){
-        return $.ajax({
-            url: 'https://randomuser.me/api/?results=30',
-            dataType: 'json'
-        });
-    }
-    function display(data){
-        let tab=document.getElementById("emp");
-        let i=1;
-        data.results.forEach(element => {
-            let {name,email,location,registered,picture}=element;
-            let row = tab.insertRow(i++);
-            row.insertCell(0).innerHTML=name.first+" "+name.last;
-            row.insertCell(1).innerHTML=location.street;
-            row.insertCell(2).innerHTML=email;
-            row.insertCell(3).innerHTML=registered.age;
-            row.insertCell(4).innerHTML=`<img src=${picture.thumbnail}>`;    
-        });
-        window.allEmps=data.results;
-    }
-    getEmps().done(display);
-    function search(text){
-        let results=window.allEmps.filter(s=>s.name.first.indexOf(text)>=0)
-        console.log(results);
-        
-    }
-    return {search};
-
-})();
-*/
-//empModule.search("adam");
-
+let url=`http://localhost:8080/`;
 function display(data){
     let tab=document.getElementById("emp");
     $("#emp").find("tr:not(:first)").remove();
@@ -59,7 +26,7 @@ function display(data){
 
 (()=>{
     $.ajax({
-        url: 'http://localhost:8080/users/all',
+        url: url+'users/all',
         dataType: 'json',
         success:function(data){
             console.log(data);
@@ -72,7 +39,7 @@ function display(data){
 function remove(username){
     console.log(username);
     $.ajax({
-        url: `http://localhost:8080/users/remove/${username}`,
+        url: url+`users/remove/${username}`,
         type: 'DELETE',
         success: (data)=>{
             display(data);
@@ -81,7 +48,7 @@ function remove(username){
 }
 function reset(){
     $.ajax({
-        url: 'http://localhost:8080/users/reset',
+        url: url+'users/reset',
         dataType: 'json',
         success:function(data){
             console.log(data);
@@ -95,7 +62,7 @@ function addUser(name,address,email,age,img){
         console.log(user);
         
        jQuery.ajax({
-        url: "http://localhost:8080/users/add",
+        url: url+"users/add",
         type: "POST",
         data: JSON.stringify(user),
         contentType:"application/json",
@@ -108,7 +75,7 @@ function addUser(name,address,email,age,img){
 }
 document.getElementById("search").addEventListener("input",(e)=>{
     $.ajax({
-        url: `http://localhost:8080/users/search?name=${e.target.value}`,
+        url: url+`users/search?name=${e.target.value}`,
         dataType: 'json',
         success:function(data){
             console.log(data);
